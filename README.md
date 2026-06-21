@@ -13,11 +13,11 @@ Bu proje, ESP32 geliştirme kartı kullanılarak tasarlanmış, hareket ve mesaf
 
 ## 🚀 Sistem Özellikleri ve Çalışma Senaryosu
 
-Sistem ortamdaki hareketleri ve nesne mesafelerini sürekli olarak tarar:
+Sistem ortamdaki hareketleri ve nesne mesafelerini sürekli olarak tarayarak aşağıdaki algoritmaları işletir:
 
-* **Sensör Veri Aktarımı:** Ultrasonik sensörden (HC-SR04) elde edilen veriler her 1 saniyede bir MQTT broker'a aktarılır ve Node-RED Dashboard üzerindeki Gauge (gösterge) panelinde anlık olarak izlenir.
-* **Akıllı Alarm Durumu:** PIR sensörü ortamda hareket algılarsa **VE** hedef mesafesi `0 ile 200 cm` aralığındaysa, sistem tehlike durumuna geçer.
-* **Donanımsal Kesme (Timer Interrupt):** Tehlike anında, işlemciyi meşgul etmeden (non-blocking) doğrudan donanım seviyesinde çalışan bir Timer Interrupt (ISR) devreye girer. Bu sayede RGB LED her 500 ms'de bir kusursuz bir zamanlamayla yanıp söner.
+* **Asenkron Veri Aktarımı ve Dinamik Arayüz:** Ultrasonik sensörden (HC-SR04) elde edilen veriler her 1 saniyede bir MQTT broker'a aktarılır. Node-RED Dashboard üzerindeki Gauge (gösterge) paneli, bu verileri hedef mesafesine göre dinamik olarak renklendirir: `0-200 cm (Kırmızı)`, `200-300 cm (Sarı)` ve `300-400 cm (Yeşil)`.
+* **Akıllı Alarm Durumu:** PIR sensörü ortamda dijital (HIGH) hareket algılarsa **VE** hedef mesafesi tehlike sınırı olan `0 ile 200 cm` aralığındaysa, sistem otomatik olarak alarm durumuna geçer.
+* **Donanımsal Kesme (Timer Interrupt):** Tehlike anında, işlemciyi meşgul etmeden (non-blocking) doğrudan donanım seviyesinde çalışan bir Timer Interrupt (ISR) devreye girer. Zamanlayıcı **1 MHz (1 mikrosaniye)** taban frekansıyla kurularak RGB LED'in tam 500.000 tıkta (500 ms) bir kusursuz zamanlamayla yanıp sönmesi sağlanmıştır.
 * **Uzaktan Müdahale:** Kullanıcı, Node-RED arayüzünde bulunan kontrol butonu aracılığıyla sisteme "KAPAT" veya "AC" komutları göndererek yanıp sönen alarmı istediği an durdurabilir veya yeniden aktif edebilir.
 
 ## 🛠️ Kullanılan Donanımlar ve Pin Haritası
@@ -26,11 +26,11 @@ Sistem ortamdaki hareketleri ve nesne mesafelerini sürekli olarak tarar:
 | :--- | :--- | :--- |
 | **HC-SR04 (Mesafe)** | `TRIG: 25`, `ECHO: 34` | Hedef mesafesi ölçümü |
 | **PIR Motion Sensörü** | `OUT: 19` | Hareket algılama (Dijital Giriş) |
-| **RGB LED (Ortak Anot)**| `R: 5`, `G: 17`, `B: 16` | Görsel alarm bildirimi |
+| **RGB LED (Ortak Anot)**| `R: 5`, `G: 17`, `B: 16` | Görsel alarm bildirimi. *(Not: Kullanılmayan Yeşil ve Mavi bacaklar setup aşamasında HIGH konumuna çekilerek donanımsal parazitlerin önüne geçilmiştir).* |
 
 ## 🌐 Ağ ve MQTT Konfigürasyonu
 
-Bu proje uzaktan haberleşme için `PubSubClient` kütüphanesini ve test amaçlı Mosquitto broker altyapısını kullanmaktadır.
+Bu proje uzaktan haberleşme için `PubSubClient` kütüphanesini ve test amaçlı Mosquitto broker altyapısını kullanmaktadır. İletişim kanalları güvenlik ve çakışma kontrolü amacıyla **öğrenci numarası (19010011108)** kullanılarak kişiselleştirilmiştir.
 
 * **WiFi SSID:** `Wokwi-GUEST` 
 * **MQTT Broker:** `test.mosquitto.org` (Port: 1883) 
