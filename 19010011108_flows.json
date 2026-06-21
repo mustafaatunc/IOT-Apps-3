@@ -1,0 +1,191 @@
+[
+    {
+        "id": "adad1d18c23545dc",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9af7cc8a5729a144",
+        "type": "mqtt in",
+        "z": "adad1d18c23545dc",
+        "name": "",
+        "topic": "19010011108/mesafe",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7d71f926502e24ac",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 220,
+        "y": 120,
+        "wires": [
+            [
+                "906ae2202f0253f3"
+            ]
+        ]
+    },
+    {
+        "id": "906ae2202f0253f3",
+        "type": "ui_gauge",
+        "z": "adad1d18c23545dc",
+        "name": "",
+        "group": "28b9a9dd087482bb",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Mesafe",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "400",
+        "colors": [
+            "#ff3434",
+            "#e6fb3c",
+            "#28a215"
+        ],
+        "seg1": "200",
+        "seg2": "300",
+        "diff": false,
+        "className": "",
+        "x": 500,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "0d30c5b38b2709f0",
+        "type": "ui_button",
+        "z": "adad1d18c23545dc",
+        "name": "",
+        "group": "28b9a9dd087482bb",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Alarmı Kapat",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "KAPAT",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 210,
+        "y": 200,
+        "wires": [
+            [
+                "b0e76a4748cda7d4"
+            ]
+        ]
+    },
+    {
+        "id": "194e8b68fc5fa927",
+        "type": "ui_button",
+        "z": "adad1d18c23545dc",
+        "name": "",
+        "group": "28b9a9dd087482bb",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Alarmı Aç",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "AC",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 200,
+        "y": 260,
+        "wires": [
+            [
+                "b0e76a4748cda7d4"
+            ]
+        ]
+    },
+    {
+        "id": "b0e76a4748cda7d4",
+        "type": "mqtt out",
+        "z": "adad1d18c23545dc",
+        "name": "",
+        "topic": "19010011108/kontrol",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7d71f926502e24ac",
+        "x": 520,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "7d71f926502e24ac",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "test.mosquitto.org",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "28b9a9dd087482bb",
+        "type": "ui_group",
+        "name": "Sensör Paneli",
+        "tab": "dfd523079feda816",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "dfd523079feda816",
+        "type": "ui_tab",
+        "name": "Ana Sayfa",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "115a497208985fb9",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]
